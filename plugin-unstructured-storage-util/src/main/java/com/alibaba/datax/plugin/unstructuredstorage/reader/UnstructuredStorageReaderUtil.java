@@ -1,18 +1,22 @@
 package com.alibaba.datax.plugin.unstructuredstorage.reader;
 
-import com.alibaba.datax.common.element.*;
-import com.alibaba.datax.common.exception.DataXException;
-import com.alibaba.datax.common.plugin.RecordSender;
-import com.alibaba.datax.common.plugin.TaskPluginCollector;
-import com.alibaba.datax.common.util.Configuration;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
-import com.csvreader.CsvReader;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.UnsupportedCharsetException;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import org.anarres.lzo.LzoDecompressor1x_safe;
+import org.anarres.lzo.LzoInputStream;
 import org.apache.commons.beanutils.BeanUtils;
-import io.airlift.compress.snappy.SnappyCodec;
-import io.airlift.compress.snappy.SnappyFramedInputStream;
-import org.anarres.lzo.*;
 import org.apache.commons.compress.compressors.CompressorInputStream;
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
@@ -23,13 +27,24 @@ import org.apache.hadoop.io.compress.CompressionCodec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.nio.charset.UnsupportedCharsetException;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import com.alibaba.datax.common.element.BoolColumn;
+import com.alibaba.datax.common.element.Column;
+import com.alibaba.datax.common.element.DateColumn;
+import com.alibaba.datax.common.element.DoubleColumn;
+import com.alibaba.datax.common.element.LongColumn;
+import com.alibaba.datax.common.element.Record;
+import com.alibaba.datax.common.element.StringColumn;
+import com.alibaba.datax.common.exception.DataXException;
+import com.alibaba.datax.common.plugin.RecordSender;
+import com.alibaba.datax.common.plugin.TaskPluginCollector;
+import com.alibaba.datax.common.util.Configuration;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
+import com.csvreader.CsvReader;
+
+import io.airlift.compress.snappy.SnappyCodec;
+import io.airlift.compress.snappy.SnappyFramedInputStream;
 
 public class UnstructuredStorageReaderUtil {
 	private static final Logger LOG = LoggerFactory

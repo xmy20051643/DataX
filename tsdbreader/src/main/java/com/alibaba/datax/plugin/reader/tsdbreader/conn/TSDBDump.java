@@ -1,17 +1,26 @@
 package com.alibaba.datax.plugin.reader.tsdbreader.conn;
 
-import com.alibaba.datax.common.element.*;
+import static com.alibaba.datax.plugin.reader.tsdbreader.Constant.METRIC_SPECIFY_KEY_PREFIX_LENGTH;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.alibaba.datax.common.element.Column;
+import com.alibaba.datax.common.element.DoubleColumn;
+import com.alibaba.datax.common.element.LongColumn;
+import com.alibaba.datax.common.element.Record;
+import com.alibaba.datax.common.element.StringColumn;
 import com.alibaba.datax.common.plugin.RecordSender;
 import com.alibaba.datax.plugin.reader.tsdbreader.Constant;
 import com.alibaba.datax.plugin.reader.tsdbreader.util.HttpUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.Feature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.*;
-
-import static com.alibaba.datax.plugin.reader.tsdbreader.Constant.METRIC_SPECIFY_KEY_PREFIX_LENGTH;
 
 /**
  * Copyright @ 2019 alibaba.com

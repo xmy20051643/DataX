@@ -1,7 +1,7 @@
 package com.alibaba.datax.plugin.reader.hbase094xreader;
 
-import com.alibaba.datax.common.element.*;
-import com.alibaba.datax.common.exception.DataXException;
+import java.io.IOException;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.hadoop.hbase.client.HTable;
@@ -12,7 +12,14 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import com.alibaba.datax.common.element.BoolColumn;
+import com.alibaba.datax.common.element.Column;
+import com.alibaba.datax.common.element.DateColumn;
+import com.alibaba.datax.common.element.DoubleColumn;
+import com.alibaba.datax.common.element.LongColumn;
+import com.alibaba.datax.common.element.Record;
+import com.alibaba.datax.common.element.StringColumn;
+import com.alibaba.datax.common.exception.DataXException;
 
 public abstract class HbaseAbstractTask {
     private final static Logger LOG = LoggerFactory.getLogger(HbaseAbstractTask.class);

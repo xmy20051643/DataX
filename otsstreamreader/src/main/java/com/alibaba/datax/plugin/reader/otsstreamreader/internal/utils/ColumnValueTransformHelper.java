@@ -1,8 +1,13 @@
 package com.alibaba.datax.plugin.reader.otsstreamreader.internal.utils;
 
-import com.alibaba.datax.common.element.*;
+import com.alibaba.datax.common.element.BoolColumn;
+import com.alibaba.datax.common.element.BytesColumn;
 import com.alibaba.datax.common.element.Column;
-import com.alicloud.openservices.tablestore.model.*;
+import com.alibaba.datax.common.element.DoubleColumn;
+import com.alibaba.datax.common.element.LongColumn;
+import com.alibaba.datax.common.element.StringColumn;
+import com.alicloud.openservices.tablestore.model.ColumnValue;
+import com.alicloud.openservices.tablestore.model.PrimaryKeyValue;
 
 public class  ColumnValueTransformHelper {
     public static Column otsPrimaryKeyValueToDataxColumn(PrimaryKeyValue pkValue) {
